@@ -1,0 +1,73 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<h2 class="mt-3">Регистрация</h2>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Input.FullName" class="form-label"></label>
+        <input asp-for="Input.FullName" class="form-control" />
+        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Input.Email" class="form-label"></label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Input.PhoneNumber" class="form-label"></label>
+        <input asp-for="Input.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Input.Password" class="form-label"></label>
+        <input asp-for="Input.Password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+        <input asp-for="Input.ConfirmPassword" class="form-control" />
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Input.BecomeManager" class="form-check-input" id="BecomeManager" />
+        <label asp-for="Input.BecomeManager" class="form-check-label"></label>
+    </div>
+
+    <div class="form-group mb-3" id="teamSelection" style="display: none">
+        <label asp-for="Input.TeamId" class="form-label"></label>
+        <select asp-for="Input.TeamId" class="form-select" asp-items="Model.AvailableTeams">
+            <option value="">-- Изберете отбор --</option>
+        </select>
+        <span asp-validation-for="Input.TeamId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Регистрация</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const managerCheckbox = document.getElementById("BecomeManager");
+        const teamSection = document.getElementById("teamSelection");
+
+        managerCheckbox.addEventListener("change", function () {
+            teamSection.style.display = this.checked ? "block" : "none";
+        });
+
+        // Показване на dropdown при презареждане, ако е било чекнато
+        if (managerCheckbox.checked) {
+            teamSection.style.display = "block";
+        }
+    </script>
+}
